@@ -20,42 +20,21 @@ namespace pico_ssd1306 {
 
         // this is a list of setup commands for the display
         uint8_t setup[] = {
-                SSD1306_DISPLAY_OFF,
-                SSD1306_LOWCOLUMN,
-                SSD1306_HIGHCOLUMN,
-                SSD1306_STARTLINE,
-
-                SSD1306_MEMORYMODE,
-                SSD1306_MEMORYMODE_HORZONTAL,
-
-                SSD1306_CONTRAST,
-                0xFF,
-
-                SSD1306_INVERTED_OFF,
-
-                SSD1306_MULTIPLEX,
-                63,
-
-                SSD1306_DISPLAYOFFSET,
-                0x00,
-
-                SSD1306_DISPLAYCLOCKDIV,
-                0x80,
-
-                SSD1306_PRECHARGE,
-                0x22,
-
-                SSD1306_COMPINS,
-                0x12,
-
-                SSD1306_VCOMDETECT,
-                0x40,
-
-                SSD1306_CHARGEPUMP,
-                0x14,
-
-                SSD1306_DISPLAYALL_ON_RESUME,
-                SSD1306_DISPLAY_ON
+            0xAE,       // Display OFF
+            0xD5, 0x80, // Set display clock divide
+            0xA8, 0x3F, // Multiplex ratio 1/64
+            0xD3, 0x00, // Display offset = 0
+            0x40,       // Start line = 0
+            0xAD, 0x8B, // DC-DC control
+            0xA1,       // Segment remap (A0/A1)
+            0xC8,       // COM scan direction (C0/C8)
+            0xDA, 0x12, // COM pins config
+            0x81, 0x7F, // Contrast
+            0xD9, 0x22, // Pre-charge
+            0xDB, 0x35, // VCOM deselect
+            0xA4,       // Resume RAM display
+            0xA6,       // Normal display (A7 = inverse)
+            0xAF        // Display ON
         };
 
         // send each one of the setup commands
@@ -102,24 +81,19 @@ namespace pico_ssd1306 {
     }
 
     void SSD1306::sendBuffer() {
-        this->cmd(SSD1306_PAGEADDR); //Set page address from min to max
-        this->cmd(0x00);
-        this->cmd(0x07);
-        this->cmd(SSD1306_COLUMNADDR); //Set column address from min to max
-        this->cmd(0x00);
-        this->cmd(127);
+    for (uint8_t page = 0; page < 8; page++) {
+        cmd(0xB0 + page);                 // set page address
+        cmd(0x02);                        // lower column address (shifted by 2)
+        cmd(0x10);                        // higher column address
 
-        // create a temporary buffer of size of buffer plus 1 byte for startline command aka 0x40
-        unsigned char data[FRAMEBUFFER_SIZE + 1];
+        // buffer slice for this page
+        uint8_t data[129];
+        data[0] = 0x40; // indicates data
+        memcpy(data + 1, frameBuffer.get() + (page * 128), 128);
 
-        data[0] = SSD1306_STARTLINE;
-
-        // copy framebuffer to temporary buffer
-        memcpy(data + 1, frameBuffer.get(), FRAMEBUFFER_SIZE);
-
-        // send data to device
-        i2c_write_blocking(this->i2CInst, this->address, data, FRAMEBUFFER_SIZE + 1, false);
+        i2c_write_blocking(this->i2CInst, this->address, data, 129, false);
     }
+}
 
     void SSD1306::clear() {
         this->frameBuffer.clear();
