@@ -1,4 +1,6 @@
-# SSD1306 OLED Library for RP2040
+# SH1106 OLED Library for RP2040
+
+fork of a https://github.com/Harbys/pico-ssd1306 changed a little to work with sh1106 displays
 
 ## 1. Importing the library
 * Clone this project into your pico project
