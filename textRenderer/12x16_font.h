@@ -1,7 +1,7 @@
-#ifndef SSD1306_12X16_FONT_H
-#define SSD1306_12X16_FONT_H
+#ifndef SH1106_12X16_FONT_H
+#define SH1106_12X16_FONT_H
 
-#ifndef SSD1306_ASCII_FULL
+#ifndef SH1106_ASCII_FULL
 
 const unsigned char font_12x16[] = {
     0x0C, 0x10, // font width, height
@@ -7987,5 +7987,5 @@ const unsigned char font_12x16[] = {
     0x0,
 };
 
-#endif // SSD1306_ASCII_FULL
-#endif // SSD1306_12X16_FONT_H
+#endif // SH1106_ASCII_FULL
+#endif // SH1106_12X16_FONT_H

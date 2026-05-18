@@ -9,7 +9,7 @@ target_link_libraries(project_name
         hardware_i2c)
 ```
 
-### Add the ssd1306 library to your project
+### Add the sh1106 library to your project
 This is explained in [readme.md](readme.md) section 1
 
 
@@ -24,7 +24,7 @@ initializing i2c communication and when creating a display object
 you need 
 ```c++
 #include "hardware/i2c.h"
-#include "pico-ssd1306/ssd1306.h"
+#include "pico-sh1106/sh1106.h"
 ```
 i2c init and pin init:
 ```c++
@@ -39,15 +39,15 @@ i2c init and pin init:
 
 ##  2. Create a display object
 When creating a display object you need to provide 3 arguments. Witch i2c controller you want to use (the one you 
-initialized above), display address (usually 0x3C or 0x3D with ssd1306) and display size. This library defines 2
+initialized above), display address (usually 0x3C or 0x3D with sh1106) and display size. This library defines 2
 available sizes Size::W128xH64 and Size::W128xH32 
 ```c++
-pico_ssd1306::SSD1306 display = pico_ssd1306::SSD1306(i2c0, 0x3D, pico_ssd1306::Size::W128xH64);
+pico_sh1106::SH1106 display = pico_sh1106::SH1106(i2c0, 0x3D, pico_sh1106::Size::W128xH64);
 ```
 
 ## 3. A few words on how this works
 From now on you can use the display object to draw anything you want to the display.
-Core of ssd1306 library exposes 2 functions for drawing (documentation of all functions is here [doxygen](https://ssd1306.harbys.me)).
+Core of sh1106 library exposes 2 functions for drawing (documentation of all functions is here [doxygen](https://ssd1306.harbys.me)).
 ```setPixel()``` and ```addBitmapImage()``` but just calling these won't draw anything on screen. These functions only affect the buffer.
 To actually display something you need to first draw to buffer (by ```setPixel()``` or ```addBitmapImage()```) and then sending it to the
 display with ```sendBuffer()```. Same is true for ```clear()``` function. It just clears the buffer, not the screen. so 
@@ -61,7 +61,7 @@ section about write mode. tldr write mode decides whether a pixel is to be set o
 this example set pixel at x = 0 and y = 0 (top left corner) on
 ```c++
 //Create a new display object
-pico_ssd1306::SSD1306 display = pico_ssd1306::SSD1306(I2C_PORT, 0x3D, pico_ssd1306::Size::W128xH64);
+pico_sh1106::SH1106 display = pico_sh1106::SH1106(I2C_PORT, 0x3D, pico_sh1106::Size::W128xH64);
 
 display.setPixel(0, 0);
 

@@ -6,14 +6,14 @@ project(text_example)
 
 pico_sdk_init()
 
-add_subdirectory(pico-ssd1306)
+add_subdirectory(pico-sh1106)
 
 add_executable(text_example
         main.cpp)
 
 target_link_libraries(text_example
         hardware_i2c
-        pico_ssd1306)
+        pico_sh1106)
 
 
 pico_add_extra_outputs(text_example)

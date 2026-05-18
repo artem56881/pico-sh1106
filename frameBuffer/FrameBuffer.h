@@ -1,17 +1,19 @@
-#ifndef SSD1306_FRAMEBUFFER_H
-#define SSD1306_FRAMEBUFFER_H
+#ifndef SH1106_FRAMEBUFFER_H
+#define SH1106_FRAMEBUFFER_H
 
 #include <string.h>
 
 /// \brief Set frame buffer to 1024 bytes, witch is 128*64 / 8
 ///
-/// For 128x32 displays it's still 1024 due to how memory mapping works on ssd1306.
+/// For 128x32 displays it's still 1024 due to how memory mapping works on sh1106.
 /// This is explained in readme.md
 #define FRAMEBUFFER_SIZE 1024
 
 /// \brief Framebuffer class contains a pointer to buffer and functions for interacting with it
-class FrameBuffer {
-    unsigned char * buffer;
+class FrameBuffer
+{
+    unsigned char *buffer;
+
 public:
     /// Constructs frame buffer and allocates memory for buffer
     FrameBuffer();
@@ -41,14 +43,13 @@ public:
     void byteXOR(int n, unsigned char byte);
 
     /// Replaces pointer with one pointing to a different buffer
-    void setBuffer(unsigned char * new_buffer);
+    void setBuffer(unsigned char *new_buffer);
 
     /// Zeroes out the buffer aka set buffer to all 0
     void clear();
 
     /// Returns a pointer to the buffer
-    unsigned char * get();
+    unsigned char *get();
 };
 
-
-#endif //SSD1306_FRAMEBUFFER_H
+#endif // SH1106_FRAMEBUFFER_H

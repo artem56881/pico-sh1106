@@ -1,4 +1,4 @@
-# Examples for pico ssd1306 library
+# Examples for pico sh1106 library
 
 ## Core library
 | Link                                   | Description                                     |
@@ -26,8 +26,8 @@
 
 * Clone this project and go into one of the examples
 ```shell
-git clone https://github.com/Harbys/pico-ssd1306.git
-cd pico-ssd1306/examples/(choose_an_example)
+git clone https://github.com/Harbys/pico-sh1106.git
+cd pico-sh1106/examples/(choose_an_example)
 ```
 * Copy pico_sdk_import.cmake from your pico-sdk
 ```shell
@@ -39,7 +39,7 @@ export PICO_SDK_PATH="(path_to_pico_sdk)"
 ```
 * Create a symlink to the whole library
 ```shell
-ln -s ../../. pico-ssd1306
+ln -s ../../. pico-sh1106
 ```
 * Create a build directory and enter it
 ```shell

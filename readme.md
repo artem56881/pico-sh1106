@@ -6,15 +6,15 @@ fork of a https://github.com/Harbys/pico-ssd1306 changed a little to work with s
 * Clone this project into your pico project
 * Add this to your CMakeLists.txt
   ```cmake
-    add_subdirectory(pico-ssd1306)
+    add_subdirectory(pico-sh1106)
     target_link_libraries(your_project_name
-    pico_ssd1306
+    pico_sh1106
     # you will also need hardware i2c library for communication with the display
     hardware_i2c)
   ```
 * Import library in your code
   ```c++
-  #include "pico-ssd1306/ssd1306.h"
+  #include "pico-sh1106/sh1106.h"
   ```
 ## 2. Basic usage
 ```c++
@@ -26,7 +26,7 @@ gpio_pull_up(I2C_PIN_SDA);
 gpio_pull_up(I2C_PIN_SCL);
 
 //Create a new display object
-pico_ssd1306::SSD1306 display = pico_ssd1306::SSD1306(I2C_PORT, 0x3D, pico_ssd1306::Size::W128xH64);
+pico_sh1106::SH1106 display = pico_sh1106::SH1106(I2C_PORT, 0x3D, pico_sh1106::Size::W128xH64);
 
 //create a vertical line on x: 64 y:0-63
 for (int y = 0; y < 64; y++){
@@ -37,10 +37,10 @@ display.sendBuffer(); //Send buffer to device and show on screen
 ### Expected output:
 ![example1](images/ex1.png) 
 
-You may have noticed that this entire library is under pico_ssd1306 namespace to avoid conflicts, but if you don't have any
-conflicts and don't want to write ```pico_ssd1306::``` all the time just add 
+You may have noticed that this entire library is under pico_sh1106 namespace to avoid conflicts, but if you don't have any
+conflicts and don't want to write ```pico_sh1106::``` all the time just add 
 ```c++
-using namespace pico_ssd1306;
+using namespace pico_sh1106;
 ```
 to your file
 
@@ -61,12 +61,12 @@ same is true for 128x32 displays, then y range is 0-31
 This library comes with additional modules for shape rendering and text rendering to make your life easier
 ### Importing Shape Renderer
 ```c++
-#include "pico-ssd1306/shapeRenderer/ShapeRenderer.h"
+#include "pico-sh1106/shapeRenderer/ShapeRenderer.h"
 ```
 See: [Shape Renderer readme](shapeRenderer/readme.md) for usage and details
 ### Importing Text Renderer
 ```c++
-#include "pico-ssd1306/textRenderer/TextRenderer.h"
+#include "pico-sh1106/textRenderer/TextRenderer.h"
 ```
 See: [Text Renderer readme](textRenderer/readme.md) for usage and details
 
