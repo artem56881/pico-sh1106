@@ -181,7 +181,7 @@ namespace pico_sh1106
     {
         this->cmd(SH1106_DISPLAY_OFF);
     }
-
+}
     void SH1106::turnOn()
     {
         this->cmd(SH1106_DISPLAY_ON);
